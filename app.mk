@@ -25,7 +25,7 @@ db/migrate:
 
 ## minitest試す
 test:
-	echo 'testしたい'
+	bundle exec rails test
 
 .PHONY: rails/*
 

@@ -55,11 +55,17 @@ db/drop:
 db/migrate:
 	docker-compose run --rm ruby make -f app.mk db/migrate
 
-.PHONY: test
+.PHONY: test/*
 
 ## minitest試す
-test:
+test: test/ruby test/node
+
+test/ruby:
 	docker-compose run --rm ruby make -f app.mk test
+
+test/node:
+	docker-compose run --rm node make -C frontend test
+
 
 ## webコンテナのshを起動
 ssh/ruby:

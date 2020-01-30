@@ -18,14 +18,14 @@ const { mapState: mapHelloState } = createNamespacedHelpers('hello')
 
 export default {
   components: {},
-  async fetch({ store, query }) {
-    const message = query.message
-    await store.dispatch('hello/fetchMessage', { message })
-  },
   computed: {
     ...mapHelloState({
       message: ({ message }) => message
     })
+  },
+  async fetch({ store, query }) {
+    const message = query.message
+    await store.dispatch('hello/fetchMessage', { message })
   },
   methods: {}
 }
