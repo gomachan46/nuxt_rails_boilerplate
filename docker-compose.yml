@@ -1,0 +1,43 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - "43306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+  ruby:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - EDITOR=vi
+    command: make -f app.mk server
+    volumes:
+      - .:/app
+      - tmp_web:/app/tmp
+      - bundle_web:/usr/local/bundle
+    ports:
+      - "43000:3000"
+    depends_on:
+      - db
+  node:
+    image: node:12.13.0
+    command: make -C frontend dev
+    working_dir: '/app'
+    ports:
+      - "43030:3000"
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+    volumes:
+      - .:/app
+
+volumes:
+  mysql:
+    driver: 'local'
+  bundle_web:
+    driver: 'local'
+  tmp_web:
