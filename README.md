@@ -29,6 +29,10 @@ database:
   password: '...'
 ```
 
+### // FIXME:
+
+grep `FIXME` in this project, and fix your configuration. (e.g. config/database.yml, config/environments/production.rb, ...)
+
 ### initialize
 
 ```sh
